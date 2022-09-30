@@ -1,0 +1,21 @@
+input {
+    padding: 0;
+    padding-left: 10px;
+    border: 0;
+    border-bottom: 1px solid darkturquoise;
+    width: 390px;
+    height: 30px;
+    margin: 10px 0;
+    background-color: #111;
+    caret-color: darkturquoise;
+    color: darkturquoise;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: 0;
+}
+
+input::placeholder {
+    color: darkturquoise;
+}
