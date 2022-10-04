@@ -1,18 +1,20 @@
 import './Login.css';
-import Input from '../input/Input';
-import Button from '../button/Button';
+import Input from '../../common/input/Input';
+import Button from '../../common/button/Button';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate, Navigate } from 'react-router-dom';
+import useLocalStorage from '../../services/token';
 
 const Login = () => {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
+  const { token, createToken } = useLocalStorage();    
   
   const submitHandler = e => {
     e.preventDefault();
-    
+
     const email = e.target.email.value;
     const password = e.target.password.value;
     const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -59,16 +61,18 @@ const Login = () => {
           icon: 'success',
           buttonsStyling: false,
         })
-        let token = res.data.token;
-        localStorage.setItem('token', token);
-        navigate("/home");
+        let tokenReceived = res.data.token;
+        createToken(tokenReceived);
+        navigate("/listing");
       })
       .catch( e => console.log(e) )
   }
 
+  if (token) return <Navigate replace to="/listing" />
+
   return (
     <form className="login" onSubmit={submitHandler}>
-      {localStorage.getItem("token") && <Navigate replace to="/home" /> }
+      {/* { token && <Navigate replace to="/listing" /> } */}
       <h3>Iniciar sesión</h3>
       <Input 
         type="text"

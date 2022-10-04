@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/login/Login";
-import Page from "./components/page/Page";
-import NotFound from "./components/notFound/NotFound";
+import Login from "./components/views/login/Login";
+import Listing from "./components/views/listing/Listing";
+import NotFound from "./components/views/notFound/NotFound";
+import Layout from "./components/layout/Layout";
 
 const styles = {
   container: {
@@ -17,11 +18,13 @@ function App() {
   return (
     <div style={styles.container}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/page" element={<Page />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/listing" element={<Listing />} />
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </div>
   );
